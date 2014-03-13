@@ -21,16 +21,17 @@
 
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import <AppKit/AppKit.h>
 
+// Set OS Params
+#define NSAppKitVersionNumber10_8 1187
+#define NSAppKitVersionNumber10_9 1265
 
 #pragma mark - Swizzle NSBundle
 
 NSString *fakeBundleIdentifier = nil;
 
 @implementation NSBundle(swizle)
-
-// Overriding bundleIdentifier works, but overriding NSUserNotificationAlertStyle does not work.
-
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
@@ -39,7 +40,6 @@ NSString *fakeBundleIdentifier = nil;
         return [self __bundleIdentifier];
     }
 }
-
 @end
 
 BOOL installNSBundleHook()
@@ -53,35 +53,68 @@ BOOL installNSBundleHook()
 	return NO;
 }
 
+static BOOL
+isMavericks()
+{
+    if (floor(NSAppKitVersionNumber) <= NSAppKitVersionNumber10_8)
+    {
+        /* On a 10.8 - 10.8.x system */
+        return NO;
+    } else {
+        /* 10.9 or later system */
+        return YES;
+    }
+}
 
 #pragma mark - NotificationCenterDelegate
 
 @interface NotificationCenterDelegate : NSObject<NSUserNotificationCenterDelegate>
-
 @property (nonatomic, assign) BOOL keepRunning;
-
 @end
 
 @implementation NotificationCenterDelegate
-
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification
 {
     self.keepRunning = NO;
 }
-
 @end
 
+void register_defaults(void)
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    // initialize the dictionary with default values depending on OS level
+    NSDictionary *appDefaults;
+    if (isMavericks())
+    {
+        //10.9
+        appDefaults = @{@"sender": @"com.apple.Terminal"};
+    }
+    else
+    {
+        //10.8
+        appDefaults = @{@"": @"message"};
+    }
+    
+    // and set them appropriately
+    [defaults registerDefaults:appDefaults];
+}
 
-#pragma mark -
+
 
 int main(int argc, const char * argv[])
 {
     @autoreleasepool {
-        if (installNSBundleHook()) {
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if (installNSBundleHook())
+        {
+            register_defaults();
             
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+            //set ID
             fakeBundleIdentifier = [defaults stringForKey:@"identifier"];
             
+            
+            //setup NC
             NSUserNotificationCenter *nc = [NSUserNotificationCenter defaultUserNotificationCenter];
             NotificationCenterDelegate *ncDelegate = [[NotificationCenterDelegate alloc]init];
             ncDelegate.keepRunning = YES;
