@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C7B158918D1EFFE00EF67D1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C7B158818D1EFFE00EF67D1 /* AppKit.framework */; };
 		6C87985C16BF768400ECA942 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C87985B16BF768400ECA942 /* Foundation.framework */; };
 		6C87985F16BF768400ECA942 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C87985E16BF768400ECA942 /* main.m */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3C7B158818D1EFFE00EF67D1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		6C87985816BF768400ECA942 /* usernotification */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = usernotification; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C87985B16BF768400ECA942 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6C87985E16BF768400ECA942 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -35,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C7B158918D1EFFE00EF67D1 /* AppKit.framework in Frameworks */,
 				6C87985C16BF768400ECA942 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,6 +65,7 @@
 		6C87985A16BF768400ECA942 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3C7B158818D1EFFE00EF67D1 /* AppKit.framework */,
 				6C87985B16BF768400ECA942 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -110,7 +114,7 @@
 		6C87985016BF768400ECA942 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Norio Nomura";
 			};
 			buildConfigurationList = 6C87985316BF768400ECA942 /* Build configuration list for PBXProject "usernotification" */;
@@ -146,7 +150,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -179,7 +182,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -238,6 +240,7 @@
 				6C87986816BF768400ECA942 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
